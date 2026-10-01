@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct AppView: View {
+    
+    @State var appState: AppState = AppState()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        AppViewBuilder(showTabBarView: appState.showTabBar) {
+            TabBarView()
+        } onBoardView: {
+            WelcomeView()
+        }
+        .environment(appState)
     }
 }
 

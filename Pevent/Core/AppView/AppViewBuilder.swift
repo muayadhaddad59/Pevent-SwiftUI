@@ -7,12 +7,26 @@
 
 import SwiftUI
 
-struct AppViewBuilder: View {
+struct AppViewBuilder<TabBarView: View, OnBoardingView: View>: View {
+    
+    var showTabBarView: Bool = true
+    @ViewBuilder var tabBarView: TabBarView
+    @ViewBuilder var onBoardView: OnBoardingView
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            if showTabBarView {
+                tabBarView
+                    .transition(.move(edge: .trailing))
+            } else {
+                onBoardView
+                    .transition(.move(edge: .leading))
+            }
+        }
+        .animation(.smooth, value: showTabBarView)
     }
 }
 
-#Preview {
-    AppViewBuilder()
-}
+//#Preview {
+//    AppViewBuilder()
+//}
